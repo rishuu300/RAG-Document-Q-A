@@ -39,7 +39,7 @@ def create_vector_embeddings():
     if 'vectors' in st.session_state:
         return
 
-    st.session_state.embeddings = HuggingFaceInferenceAPIEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", api_key=os.getenv("HUGGINGFACE_API_KEY"))
+    st.session_state.embeddings = HuggingFaceInferenceAPIEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", api_key=os.getenv("HF_TOKEN"))
     st.session_state.loader = PyPDFDirectoryLoader('Research_Papers')
 
     st.session_state.docs = st.session_state.loader.load()

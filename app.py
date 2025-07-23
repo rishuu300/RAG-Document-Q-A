@@ -14,11 +14,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Load the GROQ API Key
-os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
+os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY') # type: ignore
 
 # Import LLM
 groq_api_key = os.getenv('GROQ_API_KEY')
-llm = ChatGroq(groq_api_key = groq_api_key, model = 'gemma2-9b-it')
+llm = ChatGroq(groq_api_key = groq_api_key, model = 'gemma2-9b-it') # type: ignore
 
 prompt = ChatPromptTemplate.from_template(
     """

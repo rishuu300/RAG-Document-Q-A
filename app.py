@@ -20,7 +20,7 @@ os.environ['HF_TOKEN'] = os.getenv('HF_TOKEN')
 
 # Import LLM
 groq_api_key = os.getenv('GROQ_API_KEY')
-llm = ChatGroq(groq_api_key = groq_api_key, model = 'Gemma-7b-It')
+llm = ChatGroq(groq_api_key = groq_api_key, model = 'gemma2-9b-it')
 
 prompt = ChatPromptTemplate.from_template(
     """

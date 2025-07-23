@@ -8,17 +8,19 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
+from langchain.embeddings import HuggingFaceEmbeddings
 
 #Load the Envs
 from dotenv import load_dotenv
 load_dotenv()
 
 # Load the GROQ API Key
-os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY') # type: ignore
+os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
+os.environ['HF_TOKEN'] = os.getenv('HF_TOKEN')
 
 # Import LLM
 groq_api_key = os.getenv('GROQ_API_KEY')
-llm = ChatGroq(groq_api_key = groq_api_key, model = 'Gemma-7b-It') # type: ignore
+llm = ChatGroq(groq_api_key = groq_api_key, model = 'Gemma-7b-It')
 
 prompt = ChatPromptTemplate.from_template(
     """
@@ -36,7 +38,7 @@ def create_vector_embeddings():
     if 'vectors' in st.session_state:
         return
 
-    st.session_state.embeddings = OllamaEmbeddings(model='mxbai-embed-large')
+    st.session_state.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     st.session_state.loader = PyPDFDirectoryLoader('Research_Papers')
 
     st.session_state.docs = st.session_state.loader.load()

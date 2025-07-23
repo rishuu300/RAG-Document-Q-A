@@ -9,6 +9,7 @@ from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 
 #Load the Envs
 from dotenv import load_dotenv
@@ -38,7 +39,7 @@ def create_vector_embeddings():
     if 'vectors' in st.session_state:
         return
 
-    st.session_state.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    st.session_state.embeddings = HuggingFaceInferenceAPIEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", api_key=os.getenv("HUGGINGFACE_API_KEY"))
     st.session_state.loader = PyPDFDirectoryLoader('Research_Papers')
 
     st.session_state.docs = st.session_state.loader.load()
